@@ -1,0 +1,26 @@
+Bootstrap: docker
+From:  osrf/ros:melodic-desktop
+
+%setup
+    mkdir -p ${APPTAINER_ROOTFS}/usr/local/robots
+
+%files
+   /usr/local/robots/pepper/pynaoqi-python2.7-2.5.5.5-linux64
+
+%post
+    apt -y update
+    apt -y install ros-melodic-camera-info-manager \
+    	   	   ros-melodic-octomap \
+		   ros-melodic-tf2-geometry-msgs 
+    apt -y install openssh-client tmux tcsh
+
+%environment
+    export PYTHONPATH=/usr/local/robots/pepper/pynaoqi-python2.7-2.5.5.5-linux64/lib/python2.7/site-packages/
+    export NAO_IP=$(NAO_IP:-mummer6-eth0.laas.fr}
+
+%labels
+    Authors Matthieu Herrb
+    Version v1.0
+
+%help
+    This container allows to run the naoqi_driver ROS node.
