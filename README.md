@@ -18,8 +18,6 @@ apptainer build melodic-naoqi.sif melodic-naoqi.def
 
 1. start a ROS master on your machine 
 
-1. in the container set the `ROS_MASTER_URI` and `NAO_IP` environment variables to the values corresponding to your ROS master node and robot IP address.
-
 1. run:
 ```
 export NAO_IP=<robot_ip>
