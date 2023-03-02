@@ -6,7 +6,7 @@ This repository provides a container definition file for [Apptainer](https://app
 
 ## Building the container
 
-1. Install Apptainer 1.1.6 (or any newer version) if not already done
+1. Install [Apptainer 1.1.6](https://github.com/apptainer/apptainer/releases/download/v1.1.6/apptainer_1.1.6_amd64.deb) (or any newer version) if not already done
 
 1. Run
 
