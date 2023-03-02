@@ -23,7 +23,16 @@ Bootstrap: docker
 From:  osrf/ros:melodic-desktop
 
 %setup
-    mkdir -p ${APPTAINER_ROOTFS}/usr/local/robots
+    mkdir -p ${APPTAINER_ROOTFS}/pepper/src
+    cd ${APPTAINER_ROOTFS}/pepper/src
+    # git clone https://github.com/RIS-WITH/naoqi_bridge.git
+    # git clone https://github.com/OctoMap/octomap_msgs.git
+    git clone https://github.com/RIS-WITH/nao_interaction_msgs.git
+    git clone https://github.com/RIS-WITH/naoqi_driver.git
+    git clone https://github.com/ros-naoqi/naoqi_bridge_msgs.git
+    git clone -b ros https://github.com/ros-naoqi/libqi.git
+    git clone -b ros https://github.com/ros-naoqi/libqicore.git
+    git clone https://github.com/RIS-WITH/pepper_utils.git
 
 %files
    /usr/local/robots/pepper/pynaoqi-python2.7-2.5.5.5-linux64
@@ -33,11 +42,23 @@ From:  osrf/ros:melodic-desktop
     apt -y install ros-melodic-camera-info-manager \
     	   	   ros-melodic-octomap \
 		   ros-melodic-tf2-geometry-msgs 
-    apt -y install openssh-client tmux tcsh
+    apt -y install tmux
+    cd /pepper
+    . /opt/ros/melodic/setup.sh
+    catkin_make || catkin_make
 
 %environment
-    export PYTHONPATH=/usr/local/robots/pepper/pynaoqi-python2.7-2.5.5.5-linux64/lib/python2.7/site-packages/
-    export NAO_IP=$(NAO_IP:-mummer6-eth0.laas.fr}
+    export PYTHONPATH=/usr/local/robots/pepper/pynaoqi-python2.7-2.5.5.5-linux64/lib/python2.7/site-packages/:/pepper/devel/lib/python2.7/dist-packages:${PYTHONPATH}
+    export LD_LIBRARY_PATH=/pepper/devel/lib:${LD_LIBRARY_PATH}
+    export ROS_PACKAGE_PATH=/pepper/src:/opt/ros/melodic/share
+    echo $ROS_PACKAGE_PATH
+    export NAO_IP=${NAO_IP:-mummer-eth0.laas.fr}
+
+%runscript
+    #! /bin/bash
+    export NAO_IP=${NAO_IP:-mummer6-eth0.laas.fr}
+    source /pepper/devel/setup.bash
+    roslaunch naoqi_driver naoqi_driver.launch nao_ip:=$NAO_IP roscore_ip:=$MYIP network_interface:=$MYINTERFACE
 
 %labels
     Authors Matthieu Herrb
