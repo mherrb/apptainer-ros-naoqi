@@ -11,18 +11,6 @@ This repository provides a container definition file for [Apptainer](https://app
 1. Run
 
 	apptainer build melodic-naoqi.sif melodic-naoqi.def
-	
-## Using the container 
-
-Run 
-
-	./melodic-naoqi.sif tmux
-	
-To launch a [tmux](https://github.com/tmux/tmux/wiki) environment in the container. 
-
-## Building the ROS naoqi bridge
-
-Follow those [instructions](https://github.com/RIS-WITH/ris_with_documentation/blob/master/robots/pepper_install.md) (only the Pepper software section) inside the container
 
 ## Running the bridge
 
@@ -30,11 +18,25 @@ Follow those [instructions](https://github.com/RIS-WITH/ris_with_documentation/b
 
 1. in the container set the `ROS_MASTER_URI` and `NAO_IP` environment variables to the values corresponding to your ROS master node and robot IP address.
 
-1. run
+1. run :
 
-	apptainer exec ./melodic-naoqui.siff roslaunch XXX Fill me
-	
+    export NAO_IP=<robot_ip>
+	export MYIP=<workstation ip>
+	export MYINTERFACE=<workstation interface>
+	./melodic-naoqi.sif
 
+  to run the naoqi driver
+
+## Interacting with the container 
+
+To launch a [tmux](https://github.com/tmux/tmux/wiki) environment in the container run:
+
+	apptainer exec melodic-naoqi.sif tmux
+
+The  ROS workspace in located in `/pepper` in the container. Some sample commands: 
+
+	source /pepper/devel/setup.bash
+	rosrun pepper_utils scripts/start.py
 
 
 
