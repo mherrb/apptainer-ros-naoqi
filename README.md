@@ -8,9 +8,11 @@ This repository provides a container definition file for [Apptainer](https://app
 
 1. Install [Apptainer 1.1.6](https://github.com/apptainer/apptainer/releases/download/v1.1.6/apptainer_1.1.6_amd64.deb) (or any newer version) if not already done
 
-1. Run
+1. Run:
 
-	apptainer build melodic-naoqi.sif melodic-naoqi.def
+```
+apptainer build melodic-naoqi.sif melodic-naoqi.def
+```
 
 ## Running the bridge
 
@@ -18,13 +20,13 @@ This repository provides a container definition file for [Apptainer](https://app
 
 1. in the container set the `ROS_MASTER_URI` and `NAO_IP` environment variables to the values corresponding to your ROS master node and robot IP address.
 
-1. run :
-
-    export NAO_IP=<robot_ip>
-	export MYIP=<workstation ip>
-	export MYINTERFACE=<workstation interface>
-	./melodic-naoqi.sif
-
+1. run:
+```
+export NAO_IP=<robot_ip>
+export MYIP=<workstation ip>
+export MYINTERFACE=<workstation interface>
+./melodic-naoqi.sif
+```
   to run the naoqi driver
 
 ## Interacting with the container 
