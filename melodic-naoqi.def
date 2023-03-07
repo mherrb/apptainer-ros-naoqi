@@ -51,8 +51,6 @@ From:  osrf/ros:melodic-desktop
     export PYTHONPATH=/usr/local/robots/pepper/pynaoqi-python2.7-2.5.5.5-linux64/lib/python2.7/site-packages/:/pepper/devel/lib/python2.7/dist-packages:${PYTHONPATH}
     export LD_LIBRARY_PATH=/pepper/devel/lib:${LD_LIBRARY_PATH}
     export ROS_PACKAGE_PATH=/pepper/src:/opt/ros/melodic/share
-    echo $ROS_PACKAGE_PATH
-    export NAO_IP=${NAO_IP:-mummer-eth0.laas.fr}
 
 %runscript
     #! /bin/bash
